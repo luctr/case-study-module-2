@@ -13,7 +13,7 @@ public class PartTimeEmployee extends Employee {
         this.hourlyMoney = hourlyMoney;
     }
 
-    public PartTimeEmployee(String name, int age, String address, String phoneNumber, String code, boolean status, int workTime, int hourlyMoney) {
+    public PartTimeEmployee(String name, String age, String address, String phoneNumber, String code, boolean status, int workTime, int hourlyMoney) {
         super(name, age, address, phoneNumber, code, status);
         this.workTime = workTime;
         this.hourlyMoney = hourlyMoney;

@@ -52,6 +52,29 @@ public class EmployeeManager implements Serializable {
         }
     }
 
+    //    Lấy ra danh sách nhân viên đang nghỉ
+    public List<Employee> getEmployeeStatusFales(){
+        List<Employee> employeesOff = new ArrayList<>();
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getStatus() == false){
+                Employee employee = employees.get(i);
+                employeesOff.add(employee);
+            }
+        }
+        return employeesOff;
+    }
+//    Lấy ra danh sách nhân viên đang làm việc;
+public List<Employee> getEmployeeStatusTrue(){
+    List<Employee> employeesTrue = new ArrayList<>();
+    for (int i = 0; i < employees.size(); i++) {
+        if (employees.get(i).getStatus() == true){
+            Employee employee = employees.get(i);
+            employeesTrue.add(employee);
+        }
+    }
+    return employeesTrue;
+}
+
     public Object searchEmployee(String code) {
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getCode().equals(code)) {

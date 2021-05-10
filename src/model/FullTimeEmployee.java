@@ -11,7 +11,7 @@ public class FullTimeEmployee extends Employee {
         this.day = day;
     }
 
-    public FullTimeEmployee(String name, int age, String address, String phoneNumber, String code, boolean status, int basicSalary, int day, int bonus, int fine) {
+    public FullTimeEmployee(String name, String age, String address, String phoneNumber, String code, boolean status, int basicSalary, int day, int bonus, int fine) {
         super(name, age, address, phoneNumber, code, status);
         this.basicSalary = basicSalary;
         this.day = day;

@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.org.apache.xerces.internal.impl.xs.identity.Selector;
 import controller.EmployeeManager;
 import controller.LoginManager;
 import model.Employee;
@@ -8,7 +7,10 @@ import model.FullTimeEmployee;
 import model.LogIn;
 import model.PartTimeEmployee;
 import storage.FileManager;
+import storage.MyComparator;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -110,7 +112,7 @@ public class Client {
                     }
                 }
                 if (check == 0) {
-                    System.out.println("Đăng Ký Thành Công");
+
                     break;
                 } else {
                     System.out.println("Tên Đã Tồn Tại Vui Lòng Nhập Lại");
@@ -124,7 +126,7 @@ public class Client {
         System.out.println("Nhập Mật Khẩu");
         String password = inputString();
         LogIn logIn = new LogIn(user, password);
-
+        System.out.println("Đăng Ký Thành Công");
         return logIn;
 
     }
@@ -155,7 +157,24 @@ public class Client {
                     chooseTypeEmployee(employeeManager);
                     break;
                 case 2:
-                    employeeManager.display();
+                    List<Employee> list =  employeeManager.getEmployeeStatusFales();
+                    Collections.sort(list,new MyComparator());
+                    List<Employee> list1 =  employeeManager.getEmployeeStatusTrue();
+                    Collections.sort(list1,new MyComparator());
+                    List<Employee> list2 = new ArrayList<>();
+                    list2.addAll(list);
+                    list2.addAll(list1);
+                    if (list2.size()>0){
+                        for (Employee e:list2
+                             ) {
+                            System.out.println(e.toString());
+                        }
+                    }else {
+                        System.out.println("Hiện tại Danh sách nhân viên đang trống!");
+                    }
+
+
+//                    employeeManager.display();
                     break;
                 case 3:
                     System.out.println("Nhập Mã Cần Tìm");
@@ -236,11 +255,13 @@ public class Client {
             switch (choise) {
                 case 1:
                     System.out.println("Vui lòng Nhập Tên");
-                    employee.setName(inputString());
+                    String name = testFormatName();
+                    employee.setName(name);
                     break;
                 case 2:
                     System.out.println("Vui lòng Nhập Tuổi");
-                    employee.setAge(inputInt());
+                    String age = testFormatAge();
+                    employee.setAge(age);
                     break;
                 case 3:
                     System.out.println("Vui lòng Nhập Địa Chỉ");
@@ -248,7 +269,8 @@ public class Client {
                     break;
                 case 4:
                     System.out.println("Vui lòng Nhập Số Điện Thoại");
-                    employee.setPhoneNumber(inputString());
+                    String phonneNumber = testFormatNumber();
+                    employee.setPhoneNumber(phonneNumber);
                     break;
                 case 5:
                     System.out.println("Vui Lòng Nhập Mã Nhân Viên");
@@ -256,7 +278,7 @@ public class Client {
                     break;
                 case 6:
                     System.out.println("Vui lòng Nhập Trạng Thái");
-                    employee.setStatus(status());
+                    employee.setStatus(choiseStatus());
                     break;
                 case 7:
                     System.out.println("Vui lòng Nhập Lương");
@@ -281,10 +303,49 @@ public class Client {
             System.out.println("2. Sửa Tuổi ");
             System.out.println("3. Sửa Địa Chỉ ");
             System.out.println("4. Sửa Số Điện Thoại ");
-            System.out.println("5. Thay Đổi Trạng Thái");
-            System.out.println("6. Sửa Giờ Làm");
-            System.out.println("7. Sửa Tiền Theo Tiếng");
-            System.out.println("8. Quay Lại");
+            System.out.println("5. Sửa Mã Nhân Viên ");
+            System.out.println("6. Thay Đổi Trạng Thái");
+            System.out.println("7. Sửa Giờ Làm");
+            System.out.println("8. Sửa Tiền Theo Tiếng");
+            System.out.println("9. Quay Lại");
+            int choise = new Scanner(System.in).nextInt();
+            switch (choise){
+                case 1:
+                    System.out.println("Vui lòng Nhập Tên");
+                    String age = testFormatName();
+                    employee.setName(age);
+                    break;
+                case 2:
+                    System.out.println("Vui lòng Nhập Tuổi");
+                    String editAge = testFormatAge();
+                    employee.setAge(editAge);
+                    break;
+                case 3:
+                    System.out.println("Vui lòng Nhập Địa Chỉ");
+                    employee.setAddress(inputString());
+                    break;
+                case 4:
+                    System.out.println("Vui lòng Nhập Số Điện Thoại");
+                    String phonneNumber = testFormatNumber();
+                    employee.setPhoneNumber(phonneNumber);
+                    break;
+                case 5:
+                    System.out.println("Vui Lòng Nhập Mã Nhân Viên");
+                    employee.setPhoneNumber(inputString());
+                    break;
+                case 6:
+                    System.out.println("Vui lòng Nhập Trạng Thái");
+                    employee.setStatus(choiseStatus());
+                    break;
+                case 7:
+                    System.out.println("Vui Lòng Nhập Giờ Làm Muốn Sửa");
+                    ((PartTimeEmployee)employee).setWorkTime(inputInt());
+                    break;
+                case 8:
+                    System.out.println("Vui Lòng Nhập Số Tiền Làm 1h");
+                    ((PartTimeEmployee)employee).setHourlyMoney(inputInt());
+                    break;
+            }
         }
     }
 
@@ -335,7 +396,7 @@ public class Client {
         }
     }
 
-    private static boolean status() {
+    private static boolean choiseStatus() {
         System.out.println("---------------------");
         System.out.println("1. Đang Làm Việc : True");
         System.out.println("2. Nghỉ Việc Ghi : False");
@@ -354,17 +415,17 @@ public class Client {
 
     public static FullTimeEmployee createFullTimeEmployee() {
         System.out.println("Nhập tên");
-        String name = inputString();
+        String name = testFormatName();
 
         System.out.println("Nhập Tuổi");
-        int age = inputInt();
+        String age = testFormatAge();
 
         System.out.println("Địa Chỉ ");
         String address = inputString();
 
         System.out.println("Nhập Số Điện Thoại");
         String  phoneNumber;
-        phoneNumber = testFormat();
+        phoneNumber = testFormatNumber();
 
 
         System.out.println("Nhập Mã Nhân Viên");
@@ -373,14 +434,14 @@ public class Client {
         while (true) {
             code = inputString();
             boolean check = EmployeeManager.getINSTANCE().checkCode(code);
-            if (check == true) {
+            if (check) {
                 System.out.println("Mã code không được lặp lại vui lòng nhập lại :");
             } else {
                 break;
             }
         }
         System.out.println("Nhập Trạng Thái Của Nhân Viên");
-        boolean status = status();
+        boolean status = choiseStatus();
 
         System.out.println("Lương Cứng");
         int basicSalary = new Scanner(System.in).nextInt();
@@ -394,18 +455,17 @@ public class Client {
         System.out.println("Tiền Phạt");
         int fine = new Scanner(System.in).nextInt();
 
-        FullTimeEmployee fullTimeEmployee = new FullTimeEmployee(name, age, address, phoneNumber, code, status, basicSalary, day, bonus, fine);
-        return fullTimeEmployee;
+        return new FullTimeEmployee(name, age, address, phoneNumber, code, status, basicSalary, day, bonus, fine);
     }
 
 
-    private static String testFormat() {
+    private static String testFormatNumber() {
         String phoneNumber;
         while (true){
             phoneNumber = inputString();
             String pattern = "^0[0-9]{9,10}$";
             boolean matcher = phoneNumber.matches(pattern);
-            if (matcher == true){
+            if (matcher){
                 break;
             }else {
                 System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
@@ -414,26 +474,56 @@ public class Client {
         }
         return phoneNumber;
     }
+    private static String testFormatAge() {
+        String age;
+        while (true){
+            age = inputString();
+            String pattern = "^[0-9]{2}$";
+            boolean matcher = age.matches(pattern);
+            if (!age.equals(00) && matcher){
+                break;
+            }else {
+                System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
+            }
+
+        }
+        return age;
+    }
+    private static String testFormatName() {
+        String name;
+        while (true){
+            name = inputString();
+            String pattern = "^[A-Za-z]$";
+            boolean matcher = name.matches(pattern);
+            if ( matcher){
+                break;
+            }else {
+                System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
+            }
+
+        }
+        return name;
+    }
 
     public static PartTimeEmployee createPartTimeEmployee() {
         System.out.println("Nhập tên");
-        String name = inputString();
+        String name = testFormatName();
 
         System.out.println("Nhập Tuổi");
-        int age = inputInt();
+        String age = testFormatAge();
 
         System.out.println("Nhập Địa Chỉ");
         String address = inputString();
 
         System.out.println("Nhập Số Điện Thoại");
         String phoneNumber;
-        phoneNumber = testFormat();
+        phoneNumber = testFormatNumber();
 
-        System.out.println("Nhập Mã Code");
+        System.out.println("Nhập Mã Nhân Viên");
         String code = inputString();
 
         System.out.println("Nhập Trạng Thái Của Nhân Viên");
-        boolean status = status();
+        boolean status = choiseStatus();
 
         System.out.println("Nhập Giờ Làm");
         int workTime = new Scanner(System.in).nextInt();
@@ -441,8 +531,7 @@ public class Client {
         System.out.println("Nhập Giá Giờ Làm");
         int hourlyMoney = new Scanner(System.in).nextInt();
 
-        PartTimeEmployee partTimeEmployee = new PartTimeEmployee(name, age, address, phoneNumber, code, status, workTime, hourlyMoney);
-        return partTimeEmployee;
+        return new PartTimeEmployee(name, age, address, phoneNumber, code, status, workTime, hourlyMoney);
     }
 
 }

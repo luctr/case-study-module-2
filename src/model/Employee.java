@@ -5,7 +5,7 @@ import java.io.Serializable;
 public abstract class Employee implements Serializable {
 
     private String name;
-    private int age;
+    private String age;
     private String address;
     private String phoneNumber;
     private String code;
@@ -30,11 +30,11 @@ public abstract class Employee implements Serializable {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -64,7 +64,7 @@ public abstract class Employee implements Serializable {
         this.status = status;
     }
 
-    public Employee(String name, int age, String address, String phoneNumber, String code, boolean status ) {
+    public Employee(String name, String age, String address, String phoneNumber, String code, boolean status ) {
         this.name = name;
         this.age = age;
         this.address = address;
