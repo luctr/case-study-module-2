@@ -1,12 +1,14 @@
 package controller;
 
 import model.Employee;
-import model.FullTimeEmployee;
+
 import storage.FileManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EmployeeManager implements Serializable {
     private static EmployeeManager INSTANCE = new EmployeeManager();
@@ -58,8 +60,9 @@ public class EmployeeManager implements Serializable {
         }
         return null;
     }
-    public void show(Object obiect){
-        if (obiect != null){
+
+    public void show(Object obiect) {
+        if (obiect != null) {
             System.out.println(obiect);
         }
         System.out.println("Không Tìm Thấy ");
@@ -68,26 +71,31 @@ public class EmployeeManager implements Serializable {
     public void displayByStatus(boolean status) {
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getStatus() == (status)) {
-                System.out.println("Tên Nhân Viên : " + employees.get(i).getName() +"\n" +
-                        "Trạng Thái Nhân Viên :" + (employees.get(i).getStatus()?"Đang Làm Việc":"Đã Nghỉ") + "\n");
-            }else {
+                System.out.println("Tên Nhân Viên : " + employees.get(i).getName() + "\n" +
+                        "Trạng Thái Nhân Viên :" + (employees.get(i).getStatus() ? "Đang Làm Việc" : "Đã Nghỉ") + "\n");
+            } else {
                 System.out.println("Không Có Nhân Viên Phù Hợp");
             }
         }
     }
-    public boolean checkCode(String code){
+
+    public boolean checkCode(String code) {
         for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getCode().equals(code)){
+            if (employees.get(i).getCode().equals(code)) {
                 return true;
             }
-        }return false;
+        }
+        return false;
     }
-    public void caculateSalary(){
-        for (Employee employee:employees
-             ) {
-            System.out.println("Tên Nhân Viên : " +employee.getName()+ "\n" +"Tiền phải trả là :" + employee.getAmountMoney() + "\n");
+
+    public void caculateSalary() {
+        for (Employee employee : employees
+        ) {
+            System.out.println("Tên Nhân Viên : " + employee.getName() + "\n" + "Tiền phải trả là :" + employee.getAmountMoney() + "\n");
         }
     }
+
+
 }
 
 

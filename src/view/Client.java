@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.org.apache.xerces.internal.impl.xs.identity.Selector;
 import controller.EmployeeManager;
 import controller.LoginManager;
 import model.Employee;
@@ -10,6 +11,7 @@ import storage.FileManager;
 
 import java.util.List;
 import java.util.Scanner;
+
 
 public class Client {
     public static void main(String[] args) {
@@ -108,6 +110,7 @@ public class Client {
                     }
                 }
                 if (check == 0) {
+                    System.out.println("Đăng Ký Thành Công");
                     break;
                 } else {
                     System.out.println("Tên Đã Tồn Tại Vui Lòng Nhập Lại");
@@ -189,6 +192,7 @@ public class Client {
                     loginManager.showUser();
                     break;
                 case 9:
+                    System.out.println("Nhập Tên Tài Khoản Cần Xóa");
                     String name = inputString();
                     loginManager.deleteUser(loginManager.check(name));
                     break;
@@ -359,7 +363,9 @@ public class Client {
         String address = inputString();
 
         System.out.println("Nhập Số Điện Thoại");
-        String phoneNumber = inputString();
+        String  phoneNumber;
+        phoneNumber = testFormat();
+
 
         System.out.println("Nhập Mã Nhân Viên");
         String code;
@@ -392,6 +398,23 @@ public class Client {
         return fullTimeEmployee;
     }
 
+
+    private static String testFormat() {
+        String phoneNumber;
+        while (true){
+            phoneNumber = inputString();
+            String pattern = "^0[0-9]{9,10}$";
+            boolean matcher = phoneNumber.matches(pattern);
+            if (matcher == true){
+                break;
+            }else {
+                System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
+            }
+
+        }
+        return phoneNumber;
+    }
+
     public static PartTimeEmployee createPartTimeEmployee() {
         System.out.println("Nhập tên");
         String name = inputString();
@@ -403,7 +426,8 @@ public class Client {
         String address = inputString();
 
         System.out.println("Nhập Số Điện Thoại");
-        String phoneNumber = inputString();
+        String phoneNumber;
+        phoneNumber = testFormat();
 
         System.out.println("Nhập Mã Code");
         String code = inputString();
