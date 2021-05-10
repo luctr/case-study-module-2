@@ -269,7 +269,7 @@ public class Client {
                     break;
                 case 4:
                     System.out.println("Vui lòng Nhập Số Điện Thoại");
-                    String phonneNumber = testFormatNumber();
+                    String phonneNumber = testFormatName();
                     employee.setPhoneNumber(phonneNumber);
                     break;
                 case 5:
@@ -326,7 +326,7 @@ public class Client {
                     break;
                 case 4:
                     System.out.println("Vui lòng Nhập Số Điện Thoại");
-                    String phonneNumber = testFormatNumber();
+                    String phonneNumber = testFormatName();
                     employee.setPhoneNumber(phonneNumber);
                     break;
                 case 5:
@@ -424,8 +424,8 @@ public class Client {
         String address = inputString();
 
         System.out.println("Nhập Số Điện Thoại");
-        String  phoneNumber;
-        phoneNumber = testFormatNumber();
+        String phoneNumber;
+        phoneNumber = testFormatNumber() ;
 
 
         System.out.println("Nhập Mã Nhân Viên");
@@ -493,9 +493,9 @@ public class Client {
         String name;
         while (true){
             name = inputString();
-            String pattern = "^[A-Za-z]$";
+            String pattern = "^([ \\\\u00c0-\\\\u01ffa-zA-Z'\\\\-])+$";
             boolean matcher = name.matches(pattern);
-            if ( matcher){
+            if (matcher){
                 break;
             }else {
                 System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");

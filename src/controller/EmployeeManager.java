@@ -7,16 +7,17 @@ import storage.FileManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Scanner;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
 public class EmployeeManager implements Serializable {
     private static EmployeeManager INSTANCE = new EmployeeManager();
     private List<Employee> employees = new ArrayList<>();
 
-    public List<Employee> getEmployees() {
-        return employees;
-    }
+//    public List<Employee> getEmployees() {
+//        return employees;
+//    }
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
@@ -29,9 +30,9 @@ public class EmployeeManager implements Serializable {
         return employees;
     }
 
-    public void setStaff(List<Employee> employees) {
-        this.employees = employees;
-    }
+//    public void setStaff(List<Employee> employees) {
+//        this.employees = employees;
+//    }
 
     public static EmployeeManager getINSTANCE() {
         return INSTANCE;
@@ -42,15 +43,7 @@ public class EmployeeManager implements Serializable {
         FileManager.writeFile("Employee.dat", employees);
     }
 
-    public void display() {
-        if (employees != null && employees.size() > 0) {
-            for (int i = 0; i < employees.size(); i++) {
-                System.out.println("index: " + i + "\n" + employees.get(i));
-            }
-        } else {
-            System.out.println("Không có phần tử trong mảng");
-        }
-    }
+
 
     //    Lấy ra danh sách nhân viên đang nghỉ
     public List<Employee> getEmployeeStatusFales(){
@@ -84,13 +77,6 @@ public List<Employee> getEmployeeStatusTrue(){
         return null;
     }
 
-    public void show(Object obiect) {
-        if (obiect != null) {
-            System.out.println(obiect);
-        }
-        System.out.println("Không Tìm Thấy ");
-    }
-
     public void displayByStatus(boolean status) {
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getStatus() == (status)) {
@@ -117,6 +103,52 @@ public List<Employee> getEmployeeStatusTrue(){
             System.out.println("Tên Nhân Viên : " + employee.getName() + "\n" + "Tiền phải trả là :" + employee.getAmountMoney() + "\n");
         }
     }
+//    public static String testFormatName(new Scanner) {
+//        String name;
+//        while (true){
+//            name = Scanner;
+//            String pattern = "^[A-Za-z]$";
+//            boolean matcher = name.matches(pattern);
+//            if (matcher){
+//                break;
+//            }else {
+//                System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
+//            }
+//
+//        }
+//        return name;
+//    }
+//    public static String testFormatAge(String string) {
+//        String age;
+//        while (true){
+//            age = string;
+//            String pattern = "^[0-9]{2}$";
+//            boolean matcher = age.matches(pattern);
+//            if (!age.equals(00) && matcher){
+//                break;
+//            }else {
+//                System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
+//            }
+//
+//        }
+//        return age;
+//    }
+//    public static String testFormatNumber(String string) {
+//        String phoneNumber;
+//        while (true){
+//            phoneNumber = string;
+//            String pattern = "^0[0-9]{9,10}$";
+//            boolean matcher = phoneNumber.matches(pattern);
+//            if (matcher){
+//                break;
+//            }else {
+//                System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
+//            }
+//
+//        }
+//        return phoneNumber;
+//    }
+
 
 
 }
