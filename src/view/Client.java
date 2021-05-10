@@ -17,19 +17,19 @@ public class Client {
         EmployeeManager employeeManager = EmployeeManager.getINSTANCE();
         List<Employee> employees = (List<Employee>) FileManager.readFile("Employee.dat");
 
-       LoginManager loginManager = LoginManager.getINSTANCE();
-       List<LogIn> listLogIn = (List<LogIn>) FileManager.readFile("LogIn.dat");
+        LoginManager loginManager = LoginManager.getINSTANCE();
+        List<LogIn> listLogIn = (List<LogIn>) FileManager.readFile("LogIn.dat");
 
-        if (employees != null){
+        if (employees != null) {
             employeeManager.setEmployees(employees);
         }
-        if (listLogIn != null){
+        if (listLogIn != null) {
             loginManager.setListLogIn(listLogIn);
         }
         MenuLogIn(loginManager);
 
 
-        menu(employeeManager);
+        menu(employeeManager,loginManager);
     }
 
     private static void MenuLogIn(LoginManager loginManager) {
@@ -38,37 +38,43 @@ public class Client {
             System.out.println("1. Đăng Nhập");
             System.out.println("2. Đăng Ký");
             System.out.println("3. Thoát");
-            int choise = new Scanner(System.in).nextInt();
+            int choise;
+            try {
+                choise = new Scanner(System.in).nextInt();
+
+            } catch (Exception e) {
+                System.out.println("Vui Lòng Nhập Lựa Chọn Theo Menu");
+                choise = 0;
+            }
+
             switch (choise) {
                 case 1:
                     System.out.println("----- Đăng Nhập -----");
                     while (true) {
                         System.out.println("-----------------------");
-                        System.out.println("Nhập User");
-                        String name;
-                        while (true) {
-                            name = inputString();
-                            boolean check = loginManager.check(name);
-                            if (check == true) {
-                                System.out.println("Mã code không được lặp lại vui lòng nhập lại :");
-                            } else {
-                                break;
-                            }
-                        }
+                        System.out.println("Nhập Tên Đăng Nhập");
+                        String name = inputString();
                         System.out.println("Nhập Password");
                         String password = inputString();
+
+                        //check user và password
                         boolean checkUser = loginManager.checkUser(name, password);
                         if (checkUser == true) {
+                            System.out.println("----- Đăng Nhập Thành Công -----");
                             System.out.println(" Xin Chào " + name);
                             choise = 3;
                             break;
                         } else {
                             System.out.println("Sai Tên Đăng Nhập Hoặc Mật Khẩu, Vui Lòng Nhập Lại");
-                            System.out.println("0. Thoát");
-                            int number = new Scanner(System.in).nextInt();
-                            if (number == 0) {
-                                break;
-                            }
+//                            System.out.println("Nhập vào những lựa chọn phía trên, Mời bạn nhập lại");
+//                            try {
+//                                int number = new Scanner(System.in).nextInt();
+//                                if (number == 0) {
+//                                    break;
+//                                }
+//                            } catch (Exception e) {
+//                                ;
+//                            }
                         }
                     }
                     break;
@@ -89,7 +95,28 @@ public class Client {
     private static LogIn createLogIn() {
         System.out.println("----- Đăng Ký -----");
         System.out.println("Nhập Tên Đăng Ký");
-        String user = inputString();
+        String user = "";
+        LoginManager loginManager = LoginManager.getINSTANCE();
+
+        while (true) {
+            int check = 0;
+            user = inputString();
+            if (user != null && user.length() > 0) {
+                for (int i = 0; i < loginManager.getListLogIn().size(); i++) {
+                    if (loginManager.getListLogIn().get(i).getUser().equals(user)) {
+                        check++;
+                    }
+                }
+                if (check == 0) {
+                    break;
+                } else {
+                    System.out.println("Tên Đã Tồn Tại Vui Lòng Nhập Lại");
+                    System.out.println("Nhập Lại Tên Đăng Nhập");
+                }
+            } else {
+                System.out.println("Tên Đăng Nhập Không Thể Để Trống");
+            }
+        }
 
         System.out.println("Nhập Mật Khẩu");
         String password = inputString();
@@ -99,16 +126,18 @@ public class Client {
 
     }
 
-    public static void menu(EmployeeManager employeeManager) {
+    public static void menu(EmployeeManager employeeManager, LoginManager loginManager) {
         do {
             System.out.println("1. Thêm Nhân Viên");
             System.out.println("2. Hiển Thị Thông Tin Nhân Viên");
             System.out.println("3. Tìm Kiếm Và Sửa Nhân Viên");
             System.out.println("4. Tìm Kiếm Và Xóa Nhân Viên");
-            System.out.println("5. Kiểm Tra Trạng Thái");
-            System.out.println("6. Hiển Thị Lương Phải Trả Của Nhân viên");
-            System.out.println("7. Thông Tin Tài Khoản");
-            System.out.println("8. Thoát");
+            System.out.println("5. Tìm Nhân Viên Và Hiển Thị");
+            System.out.println("6. Kiểm Tra Trạng Thái Của Nhân Viên");
+            System.out.println("7. Hiển Thị Lương Phải Trả Của Nhân viên");
+            System.out.println("8. Thông Tin Tài Khoản");
+            System.out.println("9. Xóa Tài Khoản ");
+            System.out.println("10. Thoát");
             int choise;
             while (true) {
                 try {
@@ -130,13 +159,18 @@ public class Client {
                     searchEdit(employeeManager);
                     break;
                 case 4:
+                    inputString();
                     deleteEmployee(employeeManager);
 
                     break;
                 case 5:
+                    System.out.println("Nhập Tên Cần Tìm");
+                    System.out.println(employeeManager.searchEmployee(inputString()));
+                    break;
+                case 6:
                     System.out.println("------ Chọn trạng thái hiển thị ------");
-                    System.out.println("1. True");
-                    System.out.println("2. False");
+                    System.out.println("1. Đang Làm Việc");
+                    System.out.println("2. Đã Nghỉ Việc");
                     int selection = new Scanner(System.in).nextInt();
                     switch (selection) {
                         case 1:
@@ -148,15 +182,20 @@ public class Client {
                     }
 
                     break;
-                case 6:
+                case 7:
                     employeeManager.caculateSalary();
                     break;
-                case 7:
-                    break;
                 case 8:
+                    loginManager.showUser();
+                    break;
+                case 9:
+                    String name = inputString();
+                    loginManager.deleteUser(loginManager.check(name));
+                    break;
+                case 10:
                     break;
             }
-            if (choise == 8) {
+            if (choise == 10) {
                 break;
             }
         } while (true);

@@ -44,21 +44,29 @@ public class LoginManager {
 
     public  void addList(LogIn logIn) {
         listLogIn.add(logIn);
-        FileManager.writeFile("LogIn.dat", logIn);
+        FileManager.writeFile("LogIn.dat", listLogIn);
     }
 
-    public  boolean check(String name) {
+    public  LogIn check(String name) {
         for (int i = 0; i < listLogIn.size(); i++) {
             if (listLogIn.get(i).getUser().equals(name)) {
-                return true;
+                 return listLogIn.get(i);
             }
         }
-        return false;
+
+        return null;
     }
     public  void showUser(){
         for (int i = 0; i < listLogIn.size(); i++) {
-            System.out.println(listLogIn.get(i).getUser());
+            System.out.println("Tài Khoản : " + listLogIn.get(i).getUser());
         }
+    }
+    public void deleteUser(Object obiect){
+        if (obiect != null){
+            listLogIn.remove(obiect);
+            System.out.println("Đã Xóa Thành Công");
+        }
+        System.out.println("Không Tìm Thấy ");
     }
 
 }

@@ -58,6 +58,12 @@ public class EmployeeManager implements Serializable {
         }
         return null;
     }
+    public void show(Object obiect){
+        if (obiect != null){
+            System.out.println(obiect);
+        }
+        System.out.println("Không Tìm Thấy ");
+    }
 
     public void displayByStatus(boolean status) {
         for (int i = 0; i < employees.size(); i++) {
