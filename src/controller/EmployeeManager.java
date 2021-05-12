@@ -76,14 +76,20 @@ public List<Employee> getEmployeeStatusTrue(){
         }
         return null;
     }
+    public Object searchName(String name) {
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getName().equals(name)) {
+                return employees.get(i);
+            }
+        }
+        return null;
+    }
 
     public void displayByStatus(boolean status) {
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getStatus() == (status)) {
                 System.out.println("Tên Nhân Viên : " + employees.get(i).getName() + "\n" +
                         "Trạng Thái Nhân Viên :" + (employees.get(i).getStatus() ? "Đang Làm Việc" : "Đã Nghỉ") + "\n");
-            } else {
-                System.out.println("Không Có Nhân Viên Phù Hợp");
             }
         }
     }

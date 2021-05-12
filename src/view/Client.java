@@ -33,7 +33,7 @@ public class Client {
         MenuLogIn(loginManager);
 
 
-        menu(employeeManager,loginManager);
+        menu(employeeManager, loginManager);
     }
 
     private static void MenuLogIn(LoginManager loginManager) {
@@ -157,37 +157,34 @@ public class Client {
                     chooseTypeEmployee(employeeManager);
                     break;
                 case 2:
-                    List<Employee> list =  employeeManager.getEmployeeStatusFales();
-                    Collections.sort(list,new MyComparator());
-                    List<Employee> list1 =  employeeManager.getEmployeeStatusTrue();
-                    Collections.sort(list1,new MyComparator());
+                    List<Employee> list = employeeManager.getEmployeeStatusFales();
+                    Collections.sort(list, new MyComparator());
+                    List<Employee> list1 = employeeManager.getEmployeeStatusTrue();
+                    Collections.sort(list1, new MyComparator());
                     List<Employee> list2 = new ArrayList<>();
                     list2.addAll(list);
                     list2.addAll(list1);
-                    if (list2.size()>0){
-                        for (Employee e:list2
-                             ) {
+                    if (list2.size() > 0) {
+                        for (Employee e : list2
+                        ) {
                             System.out.println(e.toString());
                         }
-                    }else {
+                    } else {
                         System.out.println("Hiện tại Danh sách nhân viên đang trống!");
                     }
-
-
-//                    employeeManager.display();
                     break;
                 case 3:
                     System.out.println("Nhập Mã Cần Tìm");
                     searchEdit(employeeManager);
                     break;
                 case 4:
-                    inputString();
+//                    inputString();
                     deleteEmployee(employeeManager);
 
                     break;
                 case 5:
                     System.out.println("Nhập Tên Cần Tìm");
-                    System.out.println(employeeManager.searchEmployee(inputString()));
+                    System.out.println(employeeManager.searchName(inputString()));
                     break;
                 case 6:
                     System.out.println("------ Chọn trạng thái hiển thị ------");
@@ -239,112 +236,120 @@ public class Client {
     private static void searchEdit(EmployeeManager employeeManager) {
         Employee employee = (Employee) employeeManager.searchEmployee(inputString());
         System.out.println(employee);
-        if (employee instanceof FullTimeEmployee) {
-            System.out.println("------ Sửa Thông Tin Nhân Viên ------");
-            System.out.println("1. Sửa Tên ");
-            System.out.println("2. Sửa Tuổi ");
-            System.out.println("3. Sửa Địa Chỉ ");
-            System.out.println("4. Sửa Số Điện Thoại ");
-            System.out.println("5. Sửa Mã Nhân Viên");
-            System.out.println("6. Thay đổi Trạng Thái");
-            System.out.println("7. Sửa Lương Cơ Bản");
-            System.out.println("8. Sửa Tiền Thưởng");
-            System.out.println("9. Sửa Tiền Phạt");
-            System.out.println("10. Quay Lại");
-            int choise = new Scanner(System.in).nextInt();
-            switch (choise) {
-                case 1:
-                    System.out.println("Vui lòng Nhập Tên");
-                    String name = testFormatName();
-                    employee.setName(name);
-                    break;
-                case 2:
-                    System.out.println("Vui lòng Nhập Tuổi");
-                    String age = testFormatAge();
-                    employee.setAge(age);
-                    break;
-                case 3:
-                    System.out.println("Vui lòng Nhập Địa Chỉ");
-                    employee.setAddress(inputString());
-                    break;
-                case 4:
-                    System.out.println("Vui lòng Nhập Số Điện Thoại");
-                    String phonneNumber = testFormatName();
-                    employee.setPhoneNumber(phonneNumber);
-                    break;
-                case 5:
-                    System.out.println("Vui Lòng Nhập Mã Nhân Viên");
-                    employee.setPhoneNumber(inputString());
-                    break;
-                case 6:
-                    System.out.println("Vui lòng Nhập Trạng Thái");
-                    employee.setStatus(choiseStatus());
-                    break;
-                case 7:
-                    System.out.println("Vui lòng Nhập Lương");
-                    ((FullTimeEmployee) employee).setBasicSalary(inputInt());
-                    break;
-                case 8:
-                    System.out.println("Vui lòng Nhập Tiền Thưởng");
-                    ((FullTimeEmployee) employee).setBonus(inputInt());
-                    break;
-                case 9:
-                    System.out.println("Vui lòng Nhập Tiền Phạt");
-                    ((FullTimeEmployee) employee).setFine(inputInt());
-                    break;
-                case 10:
-                    break;
+        if (employee != null) {
+            if (employee instanceof FullTimeEmployee) {
+                System.out.println("------ Sửa Thông Tin Nhân Viên ------");
+                System.out.println("1. Sửa Tên ");
+                System.out.println("2. Sửa Tuổi ");
+                System.out.println("3. Sửa Địa Chỉ ");
+                System.out.println("4. Sửa Số Điện Thoại ");
+                System.out.println("5. Sửa Mã Nhân Viên");
+                System.out.println("6. Thay đổi Trạng Thái");
+                System.out.println("7. Sửa Lương Cơ Bản");
+                System.out.println("8. Sửa Tiền Thưởng");
+                System.out.println("9. Sửa Tiền Phạt");
+                System.out.println("10. Quay Lại");
+                int choise = new Scanner(System.in).nextInt();
+                switch (choise) {
+                    case 1:
+                        System.out.println("Vui lòng Nhập Tên");
+                        String nameEntered = inputString();
+                        String name = testFormatName(nameEntered);
+                        employee.setName(name);
+                        break;
+                    case 2:
+                        System.out.println("Vui lòng Nhập Tuổi");
+                        String ageEntered = inputString();
+                        String age = testFormatAge(ageEntered);
+                        employee.setAge(age);
+                        break;
+                    case 3:
+                        System.out.println("Vui lòng Nhập Địa Chỉ");
+                        employee.setAddress(inputString());
+                        break;
+                    case 4:
+                        System.out.println("Vui lòng Nhập Số Điện Thoại");
+                        String numberEntered = inputString();
+                        String phonneNumber = testFormatName(numberEntered);
+                        employee.setPhoneNumber(phonneNumber);
+                        break;
+                    case 5:
+                        System.out.println("Vui Lòng Nhập Mã Nhân Viên");
+                        employee.setPhoneNumber(inputString());
+                        break;
+                    case 6:
+                        System.out.println("Vui lòng Nhập Trạng Thái");
+                        employee.setStatus(choiseStatus());
+                        break;
+                    case 7:
+                        System.out.println("Vui lòng Nhập Lương");
+                        ((FullTimeEmployee) employee).setBasicSalary(inputInt());
+                        break;
+                    case 8:
+                        System.out.println("Vui lòng Nhập Tiền Thưởng");
+                        ((FullTimeEmployee) employee).setBonus(inputInt());
+                        break;
+                    case 9:
+                        System.out.println("Vui lòng Nhập Tiền Phạt");
+                        ((FullTimeEmployee) employee).setFine(inputInt());
+                        break;
+                    case 10:
+                        break;
 
 
-            }
-        } else {
-            System.out.println("------ Sửa Thông Tin Nhân Viên ------");
-            System.out.println("1. Sửa Tên ");
-            System.out.println("2. Sửa Tuổi ");
-            System.out.println("3. Sửa Địa Chỉ ");
-            System.out.println("4. Sửa Số Điện Thoại ");
-            System.out.println("5. Sửa Mã Nhân Viên ");
-            System.out.println("6. Thay Đổi Trạng Thái");
-            System.out.println("7. Sửa Giờ Làm");
-            System.out.println("8. Sửa Tiền Theo Tiếng");
-            System.out.println("9. Quay Lại");
-            int choise = new Scanner(System.in).nextInt();
-            switch (choise){
-                case 1:
-                    System.out.println("Vui lòng Nhập Tên");
-                    String age = testFormatName();
-                    employee.setName(age);
-                    break;
-                case 2:
-                    System.out.println("Vui lòng Nhập Tuổi");
-                    String editAge = testFormatAge();
-                    employee.setAge(editAge);
-                    break;
-                case 3:
-                    System.out.println("Vui lòng Nhập Địa Chỉ");
-                    employee.setAddress(inputString());
-                    break;
-                case 4:
-                    System.out.println("Vui lòng Nhập Số Điện Thoại");
-                    String phonneNumber = testFormatName();
-                    employee.setPhoneNumber(phonneNumber);
-                    break;
-                case 5:
-                    System.out.println("Vui Lòng Nhập Mã Nhân Viên");
-                    employee.setPhoneNumber(inputString());
-                    break;
-                case 6:
-                    System.out.println("Vui lòng Nhập Trạng Thái");
-                    employee.setStatus(choiseStatus());
-                    break;
-                case 7:
-                    System.out.println("Vui Lòng Nhập Giờ Làm Muốn Sửa");
-                    ((PartTimeEmployee)employee).setWorkTime(inputInt());
-                    break;
-                case 8:
-                    System.out.println("Vui Lòng Nhập Số Tiền Làm 1h");
-                    ((PartTimeEmployee)employee).setHourlyMoney(inputInt());
-                    break;
+                }
+            } else {
+                System.out.println("------ Sửa Thông Tin Nhân Viên ------");
+                System.out.println("1. Sửa Tên ");
+                System.out.println("2. Sửa Tuổi ");
+                System.out.println("3. Sửa Địa Chỉ ");
+                System.out.println("4. Sửa Số Điện Thoại ");
+                System.out.println("5. Sửa Mã Nhân Viên ");
+                System.out.println("6. Thay Đổi Trạng Thái");
+                System.out.println("7. Sửa Giờ Làm");
+                System.out.println("8. Sửa Tiền Theo Tiếng");
+                System.out.println("9. Quay Lại");
+                int choise = new Scanner(System.in).nextInt();
+                switch (choise) {
+                    case 1:
+                        System.out.println("Vui lòng Nhập Tên");
+                        String nameEntered = inputString();
+                        String name = testFormatName(nameEntered);
+                        employee.setName(name);
+                        break;
+                    case 2:
+                        System.out.println("Vui lòng Nhập Tuổi");
+                        String ageEntered = inputString();
+                        String editAge = testFormatAge(ageEntered);
+                        employee.setAge(editAge);
+                        break;
+                    case 3:
+                        System.out.println("Vui lòng Nhập Địa Chỉ");
+                        employee.setAddress(inputString());
+                        break;
+                    case 4:
+                        System.out.println("Vui lòng Nhập Số Điện Thoại");
+                        String numberEntered = inputString();
+                        String phonneNumber = testFormatName(numberEntered);
+                        employee.setPhoneNumber(phonneNumber);
+                        break;
+                    case 5:
+                        System.out.println("Vui Lòng Nhập Mã Nhân Viên");
+                        employee.setPhoneNumber(inputString());
+                        break;
+                    case 6:
+                        System.out.println("Vui lòng Nhập Trạng Thái");
+                        employee.setStatus(choiseStatus());
+                        break;
+                    case 7:
+                        System.out.println("Vui Lòng Nhập Giờ Làm Muốn Sửa");
+                        ((PartTimeEmployee) employee).setWorkTime(inputInt());
+                        break;
+                    case 8:
+                        System.out.println("Vui Lòng Nhập Số Tiền Làm 1h");
+                        ((PartTimeEmployee) employee).setHourlyMoney(inputInt());
+                        break;
+                }
             }
         }
     }
@@ -415,31 +420,32 @@ public class Client {
 
     public static FullTimeEmployee createFullTimeEmployee() {
         System.out.println("Nhập tên");
-        String name = testFormatName();
+        String nameEntered = inputString();
+        String name = testFormatName(nameEntered);
 
         System.out.println("Nhập Tuổi");
-        String age = testFormatAge();
+        String ageEntered = inputString();
+        String age = testFormatAge(ageEntered);
 
         System.out.println("Địa Chỉ ");
         String address = inputString();
 
         System.out.println("Nhập Số Điện Thoại");
-        String phoneNumber;
-        phoneNumber = testFormatNumber() ;
+         String numberEntered = inputString();
+        String phoneNumber = testFormatNumber(numberEntered);
 
 
         System.out.println("Nhập Mã Nhân Viên");
-        String code;
+        String code = inputString();
 
-        while (true) {
+        boolean result = checkCodeExisted(code);
+
+        while (result) {
+            System.out.println("ma da ton tai, nhap lai");
             code = inputString();
-            boolean check = EmployeeManager.getINSTANCE().checkCode(code);
-            if (check) {
-                System.out.println("Mã code không được lặp lại vui lòng nhập lại :");
-            } else {
-                break;
-            }
+            result = checkCodeExisted(code);
         }
+
         System.out.println("Nhập Trạng Thái Của Nhân Viên");
         boolean status = choiseStatus();
 
@@ -458,46 +464,52 @@ public class Client {
         return new FullTimeEmployee(name, age, address, phoneNumber, code, status, basicSalary, day, bonus, fine);
     }
 
+    private static boolean checkCodeExisted(String code) {
+        return EmployeeManager.getINSTANCE().checkCode(code);
+    }
 
-    private static String testFormatNumber() {
-        String phoneNumber;
-        while (true){
-            phoneNumber = inputString();
+
+    private static String testFormatNumber(String phoneNumber) {
+
+        while (true) {
+//            phoneNumber = inputString();
             String pattern = "^0[0-9]{9,10}$";
             boolean matcher = phoneNumber.matches(pattern);
-            if (matcher){
+            if (matcher) {
                 break;
-            }else {
+            } else {
                 System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
             }
 
         }
         return phoneNumber;
     }
-    private static String testFormatAge() {
-        String age;
-        while (true){
-            age = inputString();
+
+    private static String testFormatAge(String age) {
+        ;
+        while (true) {
+//            age = inputString();
             String pattern = "^[0-9]{2}$";
             boolean matcher = age.matches(pattern);
-            if (!age.equals(00) && matcher){
+            if (!age.equals(00) && matcher) {
                 break;
-            }else {
+            } else {
                 System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
             }
 
         }
         return age;
     }
-    private static String testFormatName() {
-        String name;
-        while (true){
-            name = inputString();
+
+    private static String testFormatName(String name) {
+
+        while (true) {
+//            name = inputString();
             String pattern = "^([ \\\\u00c0-\\\\u01ffa-zA-Z'\\\\-])+$";
             boolean matcher = name.matches(pattern);
-            if (matcher){
+            if (matcher) {
                 break;
-            }else {
+            } else {
                 System.out.println("Định Dạng Nhập Không Đúng " + "Vui Lòng Nhập Lại");
             }
 
@@ -507,20 +519,30 @@ public class Client {
 
     public static PartTimeEmployee createPartTimeEmployee() {
         System.out.println("Nhập tên");
-        String name = testFormatName();
+        String nameEntered = inputString();
+        String name = testFormatName(nameEntered);
 
         System.out.println("Nhập Tuổi");
-        String age = testFormatAge();
+        String ageEntered = inputString();
+        String age = testFormatAge(ageEntered);
 
         System.out.println("Nhập Địa Chỉ");
         String address = inputString();
 
         System.out.println("Nhập Số Điện Thoại");
-        String phoneNumber;
-        phoneNumber = testFormatNumber();
+        String numberEntered = inputString();
+        String phoneNumber = testFormatNumber(numberEntered);
 
         System.out.println("Nhập Mã Nhân Viên");
         String code = inputString();
+
+        boolean result = checkCodeExisted(code);
+
+        while (result) {
+            System.out.println("Mã Đã Tồn Tại, Vui Lòng Nhập Lại ");
+            code = inputString();
+            result = checkCodeExisted(code);
+        }
 
         System.out.println("Nhập Trạng Thái Của Nhân Viên");
         boolean status = choiseStatus();

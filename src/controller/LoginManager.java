@@ -64,9 +64,13 @@ public class LoginManager {
     public void deleteUser(Object obiect){
         if (obiect != null){
             listLogIn.remove(obiect);
+            FileManager.writeFile("LogIn.dat",listLogIn);
             System.out.println("Đã Xóa Thành Công");
+        }else {
+            System.out.println("Không Tìm Thấy ");
         }
-        System.out.println("Không Tìm Thấy ");
+
+
     }
 
 }
