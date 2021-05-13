@@ -253,14 +253,14 @@ public class Client {
                 switch (choise) {
                     case 1:
                         System.out.println("Vui lòng Nhập Tên");
-                        String nameEntered = inputString();
-                        String name = testFormatName(nameEntered);
+//                        String nameEntered = inputString();
+                        String name = testFormatName();
                         employee.setName(name);
                         break;
                     case 2:
                         System.out.println("Vui lòng Nhập Tuổi");
-                        String ageEntered = inputString();
-                        String age = testFormatAge(ageEntered);
+//                        String ageEntered = inputString();
+                        String age = testFormatAge();
                         employee.setAge(age);
                         break;
                     case 3:
@@ -269,8 +269,8 @@ public class Client {
                         break;
                     case 4:
                         System.out.println("Vui lòng Nhập Số Điện Thoại");
-                        String numberEntered = inputString();
-                        String phonneNumber = testFormatName(numberEntered);
+//                        String numberEntered = inputString();
+                        String phonneNumber = testFormatName();
                         employee.setPhoneNumber(phonneNumber);
                         break;
                     case 5:
@@ -313,14 +313,14 @@ public class Client {
                 switch (choise) {
                     case 1:
                         System.out.println("Vui lòng Nhập Tên");
-                        String nameEntered = inputString();
-                        String name = testFormatName(nameEntered);
+//                        String nameEntered = inputString();
+                        String name = testFormatName();
                         employee.setName(name);
                         break;
                     case 2:
                         System.out.println("Vui lòng Nhập Tuổi");
-                        String ageEntered = inputString();
-                        String editAge = testFormatAge(ageEntered);
+//                        String ageEntered = inputString();
+                        String editAge = testFormatAge();
                         employee.setAge(editAge);
                         break;
                     case 3:
@@ -329,8 +329,8 @@ public class Client {
                         break;
                     case 4:
                         System.out.println("Vui lòng Nhập Số Điện Thoại");
-                        String numberEntered = inputString();
-                        String phonneNumber = testFormatName(numberEntered);
+//                        String numberEntered = inputString();
+                        String phonneNumber = testFormatName();
                         employee.setPhoneNumber(phonneNumber);
                         break;
                     case 5:
@@ -420,12 +420,12 @@ public class Client {
 
     public static FullTimeEmployee createFullTimeEmployee() {
         System.out.println("Nhập tên");
-        String nameEntered = inputString();
-        String name = testFormatName(nameEntered);
+//        String nameEntered = inputString();
+        String name = testFormatName();
 
         System.out.println("Nhập Tuổi");
-        String ageEntered = inputString();
-        String age = testFormatAge(ageEntered);
+//        String ageEntered = inputString();
+        String age = testFormatAge();
 
         System.out.println("Địa Chỉ ");
         String address = inputString();
@@ -485,10 +485,10 @@ public class Client {
         return phoneNumber;
     }
 
-    private static String testFormatAge(String age) {
-        ;
+    private static String testFormatAge() {
+        String age;
         while (true) {
-//            age = inputString();
+            age = inputString();
             String pattern = "^[0-9]{2}$";
             boolean matcher = age.matches(pattern);
             if (!age.equals(00) && matcher) {
@@ -501,10 +501,10 @@ public class Client {
         return age;
     }
 
-    private static String testFormatName(String name) {
-
+    private static String testFormatName() {
+        String name;
         while (true) {
-//            name = inputString();
+            name = inputString();
             String pattern = "^([ \\\\u00c0-\\\\u01ffa-zA-Z'\\\\-])+$";
             boolean matcher = name.matches(pattern);
             if (matcher) {
@@ -519,12 +519,11 @@ public class Client {
 
     public static PartTimeEmployee createPartTimeEmployee() {
         System.out.println("Nhập tên");
-        String nameEntered = inputString();
-        String name = testFormatName(nameEntered);
+        String name = testFormatName();
 
         System.out.println("Nhập Tuổi");
-        String ageEntered = inputString();
-        String age = testFormatAge(ageEntered);
+//        String ageEntered = inputString();
+        String age = testFormatAge();
 
         System.out.println("Nhập Địa Chỉ");
         String address = inputString();
