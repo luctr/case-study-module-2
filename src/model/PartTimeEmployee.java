@@ -50,8 +50,8 @@ public class PartTimeEmployee extends Employee {
 
     @Override
     public String toString() {
-        return super.toString()+ "\n" +" Nhân Viên Part Time : " +
-                " - Thời Gian Làm : " + workTime +
-                " - Giá Theo Giờ : " + hourlyMoney + "\n";
+        return super.toString()+ "\n" +" Nhân Viên Part Time : " + "\n" +
+                " - Thời Gian Làm : " + workTime +"\n" +
+                " - Giá Theo Giờ : " + hourlyMoney + "\n" + "-------------------------";
     }
 }

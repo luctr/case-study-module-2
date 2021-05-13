@@ -63,10 +63,10 @@ public class FullTimeEmployee extends Employee {
     @Override
     public String toString() {
         return super.toString()+"\n"+" Nhân Viên FullTime : " +
-                "Lương Theo Ngày : " + basicSalary +
-                " - Ngày Làm Việc : " + day +
-                " - Tiền Thưởng : " + bonus +
+                "Lương Theo Ngày : " + basicSalary +"\n" +
+                " - Ngày Làm Việc : " + day +"\n" +
+                " - Tiền Thưởng : " + bonus +"\n" +
                 " - Tiền Phạt :" + fine +
-                "\n";
+                "\n" + "-------------------------";
     }
 }
